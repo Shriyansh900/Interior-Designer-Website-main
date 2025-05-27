@@ -3,8 +3,13 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi';
 import Button from '../ui/Button';
+import axios from 'axios';
 
 const Contact = () => {
+
+  const formDataApi = ()=>{
+    const res = axios()
+  }
   const [formData, setFormData] = useState({
     name: '',
     email: '',

@@ -11,7 +11,7 @@ const app = express();
 
 // CORS configuration based on environment
 const allowedOrigins = [
-  "https://my-portfolio-one-gray-16.vercel.app",
+  "https://interior-designer-website-main.vercel.app/",
   "http://localhost:5173",
 ];
 
@@ -77,6 +77,6 @@ const PORT = process.env.PORT || 2001;
 
 app.listen(PORT, () => {
   console.log(
-    `Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`
+    `Server is running on port ${PORT} in ${process.env.MONGO_URI} mode`
   );
 });
