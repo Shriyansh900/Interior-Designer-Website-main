@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 
 // Root route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the Portfolio API" });
+  res.json({ message: "Welcome to the interior API" });
 });
 
 // Health check endpoint
@@ -73,7 +73,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 2001;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log(

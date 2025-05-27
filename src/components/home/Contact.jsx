@@ -1,28 +1,36 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { FiMapPin, FiPhone, FiMail, FiClock } from 'react-icons/fi';
-import Button from '../ui/Button';
-import axios from 'axios';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { FiMapPin, FiPhone, FiMail, FiClock } from "react-icons/fi";
+import Button from "../ui/Button";
+import axios from "axios";
 
 const Contact = () => {
-
-  const formDataApi = ()=>{
-    const res = axios()
-  }
+  const formDataApi = async (formData) => {
+    try {
+      console.log(formData);
+      const res = await axios.post(
+        "http://localhost:8000/api/contact/",
+        formData
+      );
+     
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
   });
-  
+
   const [formStatus, setFormStatus] = useState({
     submitted: false,
     error: false,
   });
-  
+
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -30,7 +38,7 @@ const Contact = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -38,38 +46,42 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real app, you would send the form data to your backend
-    // For demo, we'll just simulate a successful submission
+    formDataApi(formData);
     setFormStatus({ submitted: true, error: false });
+    setFormData("")
+
   };
 
   const contactInfo = [
     {
       icon: FiMapPin,
-      title: 'Our Studio',
-      info: '123 Design Street, Suite 456, New York, NY 10001',
+      title: "Our Studio",
+      info: "123 Design Street, Suite 456, New York, NY 10001",
     },
     {
       icon: FiPhone,
-      title: 'Phone',
-      info: '(212) 555-1234',
-      link: 'tel:+12125551234',
+      title: "Phone",
+      info: "(212) 555-1234",
+      link: "tel:+12125551234",
     },
     {
       icon: FiMail,
-      title: 'Email',
-      info: 'info@eleganceinteriors.com',
-      link: 'mailto:info@eleganceinteriors.com',
+      title: "Email",
+      info: "info@eleganceinteriors.com",
+      link: "mailto:info@eleganceinteriors.com",
     },
     {
       icon: FiClock,
-      title: 'Working Hours',
-      info: 'Monday-Friday: 9am-6pm, Weekend: By appointment',
+      title: "Working Hours",
+      info: "Monday-Friday: 9am-6pm, Weekend: By appointment",
     },
   ];
 
   return (
-    <section ref={ref} className="section-padding bg-white dark:bg-neutral-950 transition-colors duration-300">
+    <section
+      ref={ref}
+      className="section-padding bg-white dark:bg-neutral-950 transition-colors duration-300"
+    >
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -78,11 +90,16 @@ const Contact = () => {
           className="text-center mb-12"
         >
           <h2 className="text-neutral-900 dark:text-white font-serif mb-4">
-            Ready to <span className="text-accent-600 dark:text-accent-400">Transform</span> Your Space?
+            Ready to{" "}
+            <span className="text-accent-600 dark:text-accent-400">
+              Transform
+            </span>{" "}
+            Your Space?
           </h2>
           <p className="text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-            Contact us today to schedule a consultation and start your journey toward 
-            a beautifully designed space that reflects your unique style and needs.
+            Contact us today to schedule a consultation and start your journey
+            toward a beautifully designed space that reflects your unique style
+            and needs.
           </p>
         </motion.div>
 
@@ -98,7 +115,7 @@ const Contact = () => {
               <h3 className="text-2xl font-serif font-medium text-neutral-900 dark:text-white mb-6">
                 Get In Touch
               </h3>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((item, index) => (
                   <div key={index} className="flex">
@@ -110,8 +127,8 @@ const Contact = () => {
                         {item.title}
                       </h4>
                       {item.link ? (
-                        <a 
-                          href={item.link} 
+                        <a
+                          href={item.link}
                           className="text-neutral-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 transition-colors"
                         >
                           {item.info}
@@ -126,14 +143,14 @@ const Contact = () => {
                 ))}
               </div>
             </div>
-            
+
             <div className="mt-8 p-6 bg-neutral-50 dark:bg-neutral-900 rounded-lg">
               <h4 className="font-serif font-medium text-neutral-900 dark:text-white mb-3">
                 Free Initial Consultation
               </h4>
               <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                We offer a complimentary 30-minute consultation to discuss your project 
-                needs and see if we're the right fit for your vision.
+                We offer a complimentary 30-minute consultation to discuss your
+                project needs and see if we're the right fit for your vision.
               </p>
             </div>
           </motion.div>
@@ -147,28 +164,31 @@ const Contact = () => {
           >
             {formStatus.submitted ? (
               <div className="text-center py-10">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="w-16 h-16 text-green-500 mx-auto mb-4" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-16 h-16 text-green-500 mx-auto mb-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M5 13l4 4L19 7" 
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
                   />
                 </svg>
                 <h3 className="text-2xl font-serif font-medium text-neutral-900 dark:text-white mb-2">
                   Thank You!
                 </h3>
                 <p className="text-neutral-600 dark:text-neutral-400 mb-6">
-                  Your message has been received. We'll get back to you within 24 hours.
+                  Your message has been received. We'll get back to you within
+                  24 hours.
                 </p>
-                <Button 
-                  onClick={() => setFormStatus({ submitted: false, error: false })}
+                <Button
+                  onClick={() =>
+                    setFormStatus({ submitted: false, error: false })
+                  }
                   variant="secondary"
                 >
                   Send Another Message
@@ -179,10 +199,13 @@ const Contact = () => {
                 <h3 className="text-2xl font-serif font-medium text-neutral-900 dark:text-white mb-6">
                   Send a Message
                 </h3>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       Name
                     </label>
                     <input
@@ -195,9 +218,12 @@ const Contact = () => {
                       className="w-full px-4 py-3 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       Email
                     </label>
                     <input
@@ -210,9 +236,12 @@ const Contact = () => {
                       className="w-full px-4 py-3 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       Phone
                     </label>
                     <input
@@ -224,9 +253,12 @@ const Contact = () => {
                       className="w-full px-4 py-3 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
                     />
                   </div>
-                  
+
                   <div>
-                    <label htmlFor="service" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                    <label
+                      htmlFor="service"
+                      className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                    >
                       Service Interested In
                     </label>
                     <select
@@ -245,9 +277,12 @@ const Contact = () => {
                     </select>
                   </div>
                 </div>
-                
+
                 <div className="mb-6">
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2"
+                  >
                     Message
                   </label>
                   <textarea
@@ -260,8 +295,12 @@ const Contact = () => {
                     className="w-full px-4 py-3 rounded-md border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
                   ></textarea>
                 </div>
-                
-                <Button type="submit" variant="accent" className="w-full md:w-auto">
+
+                <Button
+                  type="submit"
+                  variant="accent"
+                  className="w-full md:w-auto"
+                >
                   Send Message
                 </Button>
               </form>

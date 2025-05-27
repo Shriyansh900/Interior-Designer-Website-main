@@ -14,7 +14,7 @@ const contactSchema = new mongoose.Schema({
       "Please add a valid email",
     ],
   },
-  subject: {
+  service: {
     type: String,
     required: [true, "Please add a subject"],
     trim: true,

@@ -4,13 +4,14 @@ import Contact from "../models/Contact.js";
 // @route   POST /api/contact
 // @access  Public
 export const createContact = async (req, res) => {
+  console.log(res)
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, service, message } = req.body;
 
     // Log the incoming request
-    console.log("Received contact form submission:", { name, email, subject });
+    console.log("Received contact form submission:", { name, email, service,message  });
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !service || !message) {
       console.log("Missing required fields");
       return res.status(400).json({
         success: false,
@@ -21,7 +22,7 @@ export const createContact = async (req, res) => {
     const contact = await Contact.create({
       name,
       email,
-      subject,
+      service,
       message,
     });
 
