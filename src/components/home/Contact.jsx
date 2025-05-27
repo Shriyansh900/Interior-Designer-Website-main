@@ -10,10 +10,9 @@ const Contact = () => {
     try {
       console.log(formData);
       const res = await axios.post(
-        "http://localhost:8000/api/contact/",
+        "https://interior-designer-website-main.onrender.com/api/contact/",
         formData
       );
-     
     } catch (error) {
       console.error(error);
     }
@@ -48,8 +47,7 @@ const Contact = () => {
     e.preventDefault();
     formDataApi(formData);
     setFormStatus({ submitted: true, error: false });
-    setFormData("")
-
+    setFormData("");
   };
 
   const contactInfo = [
